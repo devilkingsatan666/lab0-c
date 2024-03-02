@@ -52,7 +52,7 @@ bool q_insert_head(struct list_head *head, char *s)
     }
 
     strncpy(scpy, s, len);
-    scpy[len + 1] = '\0';
+    scpy[len] = '\0';
 
     elm->value = scpy;
     list_add(&elm->list, head);
@@ -78,7 +78,7 @@ bool q_insert_tail(struct list_head *head, char *s)
     }
 
     strncpy(scpy, s, len);
-    scpy[len + 1] = '\0';
+    scpy[len] = '\0';
 
     elm->value = scpy;
     list_add_tail(&elm->list, head);
