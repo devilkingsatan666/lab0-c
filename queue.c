@@ -243,12 +243,9 @@ int q_ascend(struct list_head *head)
 
     list_for_each_entry_safe (node, safe, head->next, list) {
         element_t *entry = list_entry(node, element_t, list);
-        int cmp = strcmp(entry->value, min);
-        if (cmp > 0) {
+        if (strcmp(entry->value, min) > 0) {
             list_del(node);
             q_release_element(entry);
-        } else if (cmp == 0) {
-            continue;
         } else {
             size++;
             min = entry->value;
