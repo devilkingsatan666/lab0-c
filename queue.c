@@ -232,7 +232,32 @@ void q_sort(struct list_head *head, bool descend) {}
 int q_ascend(struct list_head *head)
 {
     // https://leetcode.com/problems/remove-nodes-from-linked-list/
-    return 0;
+    if (head == NULL || list_empty(head))
+        return 0;
+
+    int size = 1;
+    element_t *node, *safe;
+    char *min = list_last_entry(head, element_t, list)->value;
+
+    q_reverse(head);
+
+    list_for_each_entry_safe (node, safe, head->next, list) {
+        element_t *entry = list_entry(node, element_t, list);
+        int cmp = strcmp(entry->value, min);
+        if (cmp > 0) {
+            list_del(node);
+            q_release_element(entry);
+        } else if (cmp == 0) {
+            continue;
+        } else {
+            size++;
+            min = entry->value;
+        }
+    }
+
+    q_reverse(head);
+
+    return size;
 }
 
 /* Remove every node which has a node with a strictly greater value anywhere to
